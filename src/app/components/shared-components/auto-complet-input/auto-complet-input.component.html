@@ -1,0 +1,33 @@
+<div class="flex flex-col space-y-1.5 relative">
+  <label for="role" class="font-semibold text-[#0d0c22] text-[15px]"
+    >Role
+  </label>
+  <input
+    id="role"
+    placeholder="Role"
+    type="text"
+    class="rounded shadow py-2.5 px-4 border w-[400px] border-[#c6c6c6]"
+    [formControl]="role"
+    (ngModelChange)="setFiltredRoles($event)"
+    autocomplete="off"
+  />
+  <div
+    *ngIf="submitted && role?.invalid"
+    class="text-sm text-red-600 font-semibold"
+  >
+    <div *ngIf="role?.errors?.['required']">Ce champ est obligatoir</div>
+  </div>
+  <div
+    (clickOutside)="resetFiltredRoles()"
+    *ngIf="filteredRoles.length > 0"
+    class="w-[400px] flex flex-col space-y-2 z-10 absolute left-0 top-[69px] p-1 bg-gray-50 rounded shadow"
+  >
+    <div
+      *ngFor="let role of filteredRoles"
+      class="text-black rounded hover:bg-[#565565] hover:text-white py-1.5 px-4 cursor-pointer"
+      (click)="setSelecedRole(role)"
+    >
+      {{ role.name }}
+    </div>
+  </div>
+</div>

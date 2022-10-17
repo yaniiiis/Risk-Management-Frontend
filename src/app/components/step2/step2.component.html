@@ -1,0 +1,79 @@
+<form
+  class="flex py-6 px-16 space-y-3 flex-col border rounded-lg shadow"
+  [formGroup]="roleAgencyForm"
+>
+  <div class="w-full flex items-center pb-3 flex-col space-y-1">
+    <div class="font-semibold text-[#979797]">step 2</div>
+    <div class="text-xl font-semibold text-[#0d0c22]">Agency and user role</div>
+  </div>
+  <div class="flex flex-col space-y-1.5 relative">
+    <label for="agency" class="font-semibold text-[#0d0c22] text-[15px]"
+      >Agency
+    </label>
+    <input
+      id="agency"
+      placeholder="Agency"
+      type="text"
+      name="proposedAgency"
+      class="rounded shadow py-2.5 px-4 border w-[400px] border-[#c6c6c6]"
+      formControlName="agency"
+      (ngModelChange)="setFiltredAgencies()"
+      autocomplete="off"
+    />
+    <div
+      (clickOutside)="resetFiltredAgencies()"
+      *ngIf="filteredAgencies.length > 0"
+      class="w-[400px] flex flex-col space-y-2 z-10 absolute left-0 top-[69px] p-1 bg-gray-50 rounded shadow"
+    >
+      <div
+        *ngFor="let agency of filteredAgencies"
+        class="text-black rounded hover:bg-[#565565] hover:text-white py-1.5 px-4 cursor-pointer"
+        (click)="setSelectedAgency(agency)"
+      >
+        {{ agency.name }}
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col space-y-1.5 relative">
+    <label for="role" class="font-semibold text-[#0d0c22] text-[15px]"
+      >Role
+    </label>
+    <input
+      id="role"
+      placeholder="Role"
+      type="text"
+      class="rounded shadow py-2.5 px-4 border w-[400px] border-[#c6c6c6]"
+      formControlName="role"
+      (ngModelChange)="setFiltredRoles()"
+      autocomplete="off"
+    />
+    <div
+      (clickOutside)="restFiltredRoles()"
+      *ngIf="filteredRoles.length > 0"
+      class="w-[400px] flex flex-col space-y-2 z-10 absolute left-0 top-[69px] p-1 bg-gray-50 rounded shadow"
+    >
+      <div
+        *ngFor="let role of filteredRoles"
+        class="text-black rounded hover:bg-[#565565] hover:text-white py-1.5 px-4 cursor-pointer"
+        (click)="setSelecedRole(role)"
+      >
+        {{ role.name }}
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <button
+      class="font-bold text-lg mt-9 rounded w-[400px] border border-[#c6c6c6] bg-[#ff3333] flex justify-center items-center py-4 text-white"
+    >
+      Register
+    </button>
+  </div>
+
+  <div
+    class="w-full p-4 flex justify-center text-blue-800 font-semibold cursor-pointer hover:text-blue-700"
+    (click)="backToFirstStep()"
+  >
+    Back to the first step
+  </div>
+</form>

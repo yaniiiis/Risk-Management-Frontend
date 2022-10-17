@@ -1,0 +1,17 @@
+<div class="h-full w-full bg-[#fefefe]">
+  <div class="h-full w-full flex flex-col justify-center items-center">
+    <!-- <div
+      class="w-full flex justify-center p-10 text-2xl font-semibold text-[#0d0c22]"
+    >
+      Add User
+    </div> -->
+    <app-navbar></app-navbar>
+
+    <app-step2 *ngIf="step == 1"></app-step2>
+
+    <app-step1></app-step1>
+    <!-- <app-add-roles-and-privileges></app-add-roles-and-privileges> -->
+
+    <app-footer></app-footer>
+  </div>
+</div>

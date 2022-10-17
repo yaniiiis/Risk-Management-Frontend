@@ -1,0 +1,120 @@
+<div class="h-screen bg-[#fefefe]">
+  <div class="h-full w-full flex flex-col items-center">
+    <app-navbar></app-navbar>
+    <form
+      (ngSubmit)="onSubmit()"
+      [formGroup]="roleForm"
+      class="flex h-full py-6 px-16 space-y-3 flex-col bg-white rounded-lg shadow"
+    >
+      <div class="flex flex-col space-y-1.5">
+        <label for="role" class="font-semibold text-[#0d0c22] text-[15px]"
+          >Role
+        </label>
+        <input
+          id="role"
+          placeholder="Role"
+          type="text"
+          class="rounded shadow py-2.5 px-4 border w-[400px] border-[#c6c6c6]"
+          formControlName="role"
+        />
+
+        <div
+          *ngIf="submitted && role?.invalid"
+          class="text-sm text-red-600 font-semibold"
+        >
+          <div *ngIf="role?.errors?.['required']">Ce champ est obligatoir</div>
+          <div *ngIf="role?.errors?.['minlength']">
+            Ce champ doit contenir au moins 3 caractéres
+          </div>
+          <div *ngIf="role?.errors?.['maxlength']">
+            Ce champ doit pas contenir plus de 50 caractéres
+          </div>
+          <div *ngIf="role?.errors?.['pattern']">
+            Veuillez saisir un role valide
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="listOfChoosedPrivileges.length > 0" class="flex space-x-2">
+        <div
+          *ngFor="let privilege of listOfChoosedPrivileges"
+          class="px-3 py-2 bg-white rounded-2xl shadow border border-[#333335] group flex justify-between"
+        >
+          {{ privilege.name }}
+          <div
+            class="hidden group-hover:flex text-red-600 font-bold cursor-pointer ml-2 bg-white"
+            (click)="removePrivilege(privilege)"
+          >
+            X
+          </div>
+        </div>
+      </div>
+
+      <div
+        (clickOutside)="closePrivilegesList()"
+        class="flex flex-col space-y-1.5"
+      >
+        <label for="role" class="font-semibold text-[#0d0c22] text-[15px]"
+          >Privileges
+        </label>
+
+        <div
+          class="px-4 py-2.5 w-[400px] text-[#9ca3af] h-fit shadow border border-[#c6c6c6] rounded flex flex-col relative cursor-pointer"
+          (click)="toggleDisplayPrivilege()"
+        >
+          <div class="w-full justify-between flex">
+            <p>Privileges</p>
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="keyboard_arrow_down"
+            ></mat-icon>
+          </div>
+
+          <div
+            *ngIf="displayPrivilege"
+            class="absolute z-10 top-12 w-full left-0 flex flex-col space-y-2 p-2 bg-white shadow-lg"
+          >
+            <div
+              class="px-2 py-1 hover:bg-[#ff3333] hover:text-white rounded cursor-pointer w-full text-[#0d0c22]"
+              *ngFor="let p of listPrivileges"
+              (click)="addToChoosedPrivilege(p)"
+            >
+              {{ p.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="submitted && listOfChoosedPrivileges.length < 1"
+        class="w-full text-white font-semibold flex justify-center"
+      >
+        <p
+          class="py-1.5 px-5 bg-[#ff3333] opacity-80 text-sm text-white rounded-lg"
+        >
+          Ajoutez au moins un privilege
+        </p>
+      </div>
+
+      <!-- <select
+      (change)="addToChoosedPrivilege($event)"
+      id="countries"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    >
+      <option selected>Select a privilege</option>
+      <option *ngFor="let privelege of listPrivileges" value="privelege.id">
+        {{ privelege.name }}
+      </option>
+    </select> -->
+      <div class="flex w-full justify-center pt-[26px]">
+        <button
+          type="submit"
+          class="font-bold text-lg rounded w-[400px] py-2.5 border border-[#c6c6c6] bg-[#ff3333] flex justify-center items-center text-white"
+        >
+          Ajouter
+        </button>
+      </div>
+    </form>
+    <app-footer></app-footer>
+  </div>
+</div>
