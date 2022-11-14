@@ -1,0 +1,106 @@
+<div class="h-full bg-[#fefefe]">
+  <div class="h-full w-full flex flex-col justify-center items-center">
+    <app-navbar></app-navbar>
+
+    <form
+      class="flex py-6 px-16 space-y-3 flex-col bg-white rounded-lg shadow"
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="w-full flex items-center pb-3 flex-col space-y-1">
+        <div class="text-xl font-semibold text-[#0d0c22]">
+          Ajout Utilisateur
+        </div>
+        <div class="font-semibold text-[#979797]">
+          Ajouter un utilisateur avec ses roles
+        </div>
+      </div>
+
+      <div class="w-full flex flex-col space-y-7">
+        <div class="flex justify-between space-x-10">
+          <app-input
+            [label]="nameString"
+            [form]="registerForm"
+            [specificFormControl]="registerForm.controls['lastName']"
+            [submitted]="submitted"
+            [minLength]="4"
+            [maxLength]="40"
+          ></app-input>
+
+          <app-input
+            [label]="functionString"
+            [form]="registerForm"
+            [specificFormControl]="registerForm.controls['function']"
+            [submitted]="submitted"
+            [minLength]="4"
+            [maxLength]="40"
+          ></app-input>
+        </div>
+
+        <div class="flex justify-between space-x-10">
+          <app-input
+            [label]="firstNameString"
+            [form]="registerForm"
+            [specificFormControl]="registerForm.controls['firstName']"
+            [submitted]="submitted"
+            [minLength]="4"
+            [maxLength]="40"
+          ></app-input>
+
+          <app-input
+            [label]="structureString"
+            [form]="registerForm"
+            [specificFormControl]="registerForm.controls['structure']"
+            [submitted]="submitted"
+            [minLength]="4"
+            [maxLength]="40"
+          ></app-input>
+        </div>
+
+        <div class="flex justify-between space-x-16">
+          <app-input
+            [label]="identifiantString"
+            [form]="registerForm"
+            [specificFormControl]="registerForm.controls['identifiant']"
+            [submitted]="submitted"
+            [minLength]="4"
+            [maxLength]="40"
+          ></app-input>
+
+          <app-auto-complet-input
+            [submitted]="submitted"
+            [role]="registerForm.controls['role']"
+          ></app-auto-complet-input>
+        </div>
+
+        <div class="flex justify-between space-x-16">
+          <app-password-input
+            [label]="passwordString"
+            [form]="registerForm"
+            [specificFormControl]="registerForm.controls['password']"
+            [submitted]="submitted"
+            [minLength]="8"
+            [maxLength]="40"
+          ></app-password-input>
+
+          <app-levels-auto-complete
+            [submitted]="submitted"
+            [level]="registerForm.controls['level']"
+          ></app-levels-auto-complete>
+        </div>
+
+        <div class="flex justify-between space-x-16">
+          <app-password-input
+            [label]="confirmPasswordString"
+            [form]="registerForm"
+            [specificFormControl]="registerForm.controls['confirmPassword']"
+            [submitted]="submitted"
+          ></app-password-input>
+        </div>
+
+        <app-button [text]="addString"></app-button>
+      </div>
+    </form>
+    <app-footer></app-footer>
+  </div>
+</div>

@@ -39,4 +39,62 @@ export const roleLevelsList: RoleLevel[] = [
     level: 2,
     name: 'Niveau 2',
   },
+
+  {
+    id: 7,
+    role_id: 3,
+    level: 1,
+    name: 'Niveau 1',
+  },
+  {
+    id: 8,
+    role_id: 3,
+    level: 2,
+    name: 'Niveau 2',
+  },
+
+  {
+    id: 9,
+    role_id: 4,
+    level: 1,
+    name: 'Niveau 1',
+  },
+  {
+    id: 10,
+    role_id: 4,
+    level: 2,
+    name: 'Niveau 2',
+  },
+  {
+    id: 11,
+    role_id: 4,
+    level: 6,
+    name: 'Niveau 3',
+  },
+
+  {
+    id: 12,
+    role_id: 5,
+    level: 2,
+    name: 'Niveau 2',
+  },
+  {
+    id: 13,
+    role_id: 5,
+    level: 3,
+    name: 'Niveau 3',
+  },
+
+  {
+    id: 13,
+    role_id: 6,
+    level: 2,
+    name: 'Niveau 1',
+  },
+  {
+    id: 15,
+    role_id: 6,
+    level: 2,
+    name: 'Niveau 2',
+  },
 ];

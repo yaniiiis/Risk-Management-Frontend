@@ -3,5 +3,5 @@ import { Privilege } from './Privilege';
 export interface Role {
   id: number;
   name: string;
-  privilege: Privilege[];
+  privilege_ids: number[];
 }

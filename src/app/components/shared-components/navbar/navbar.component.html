@@ -1,0 +1,43 @@
+<div class="w-full bg-[#ffffff] shadow z-20 px-8 py-7 flex justify-between">
+  <div class="text-[#ff3333] font-bold text-2xl cursor-pointer">
+    Gestion des risques
+  </div>
+
+  <div class="flex space-x-8 text-[#333333] text-l">
+    <div
+      class="{{
+        index == 2
+          ? 'border-b-[3px]  border-b-red-500'
+          : 'hover:scale-105 hover:text-[#ff3333] transition-all duration-100'
+      }} "
+    >
+      <a [routerLink]="['']" class="font-semibold cursor-pointer"> Accueil </a>
+    </div>
+    <div
+      class="{{
+        index == 1
+          ? 'border-b-[3px]  border-b-red-500'
+          : 'hover:scale-105 hover:text-[#ff3333] transition-all duration-100'
+      }} "
+    >
+      <a [routerLink]="['/adduser']" class="font-semibold cursor-pointer">
+        Ajouter un utilisateur
+      </a>
+    </div>
+
+    <div
+      class="{{
+        index == 0
+          ? 'border-b-[3px]  border-b-red-500'
+          : 'hover:scale-105 hover:text-[#ff3333] transition-all duration-100'
+      }}"
+    >
+      <a
+        [routerLink]="['/addrole']"
+        class="font-semibold cursor-pointer hover:scale-105 transition-all duration-100"
+      >
+        Ajouter un Role
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Role } from '../models/Role';
 import { RoleLevel } from '../models/RoleLevel';
-import { rolesList } from '../shared/rolesList';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of, map, tap } from 'rxjs';
 import { roleLevelsList } from '../shared/roleLevelsList';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AddUserService {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private httpClient: HttpClient) {
+    this.httpClient
+      .get<Role[]>('http://localhost:3000/roles')
+      .subscribe((r) => (this.roles = r));
+  }
 
+  roles: Role[] = [];
   filteredRoles: BehaviorSubject<Role[]> = new BehaviorSubject<Role[]>([]);
 
   selectedRole = new BehaviorSubject<Role | undefined>(undefined);
@@ -22,7 +27,6 @@ export class AddUserService {
   filtredLevelsList: BehaviorSubject<RoleLevel[]> = new BehaviorSubject<
     RoleLevel[]
   >([]);
-
   registerForm = new BehaviorSubject<FormGroup>(
     this.fb.group({
       firstName: [
@@ -94,6 +98,24 @@ export class AddUserService {
   filtredLevelsList$ = this.filtredLevelsList.asObservable();
   registerForm$ = this.registerForm.asObservable();
 
+  getRoles() {
+    const roles = this.httpClient.get<Role[]>('http://localhost:3000/roles');
+    return roles;
+  }
+
+  addUser(data: any) {
+    this.httpClient
+      .post('http://localhost:3000/', data)
+      .subscribe((r) => console.log(' from http request  :   ', r));
+  }
+
+  getPrivileges() {
+    const privileges = this.httpClient.get<Role[]>(
+      'http://localhost:3000/privileges'
+    );
+    return privileges;
+  }
+
   setFiltredRoles(event: Event, role: string) {
     console.log('roole', role);
     if (String(event) != this.selectedRole?.value?.name) {
@@ -109,7 +131,7 @@ export class AddUserService {
         this.filteredRoles.next([]);
       } else
         this.filteredRoles.next(
-          rolesList.filter((r) =>
+          this.roles.filter((r) =>
             r.name.toLowerCase().includes(role.toLowerCase())
           )
         );
@@ -128,6 +150,7 @@ export class AddUserService {
     this.selectedLevel.next(level);
     this.levelText.next(level.name);
   }
+
   setSelecedRole(r: Role) {
     this.selectedRole?.next(r);
     const aa = this.registerForm.value;
@@ -142,5 +165,17 @@ export class AddUserService {
 
   resetFiltredRoles() {
     this.filteredRoles.next([]);
+  }
+
+  toggleLevelList() {
+    if (this.enableLevels.value) {
+      // console.log('here we are ', this.filtredLevelsList);
+      this.displayLevelsList.next(!this.displayLevelsList.value);
+      console.log('oo oo ', this.displayLevelsList);
+    }
+  }
+
+  closeLevelsList() {
+    this.displayLevelsList.next(false);
   }
 }

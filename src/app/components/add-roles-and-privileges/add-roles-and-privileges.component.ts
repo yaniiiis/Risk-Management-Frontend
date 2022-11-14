@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Privilege } from 'src/app/models/Privilege';
+import { AddRoleService } from 'src/app/services/add-role.service';
 import { privilegeList } from 'src/app/shared/privilegesList';
 
 @Component({
@@ -8,14 +9,27 @@ import { privilegeList } from 'src/app/shared/privilegesList';
   templateUrl: './add-roles-and-privileges.component.html',
   styleUrls: ['./add-roles-and-privileges.component.css'],
 })
-export class AddRolesAndPrivilegesComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+export class AddRolesAndPrivilegesComponent implements OnInit, OnDestroy {
+  constructor(
+    private fb: FormBuilder,
+    private addRoleService: AddRoleService
+  ) {}
+
+  ngOnInit(): void {
+    this.addRoleService
+      .getPrivilege()
+      .subscribe((p) => (this.listPrivileges = p));
+  }
+  ngOnDestroy(): void {}
 
   submitted = false;
   displayPrivilege = false;
 
-  listPrivileges: Privilege[] = privilegeList;
+  listPrivileges: Privilege[] = [];
   listOfChoosedPrivileges: any[] = [];
+
+  roleString = 'Role';
+  addString = 'Ajouter';
 
   roleForm = this.fb.group({
     role: [
@@ -41,6 +55,13 @@ export class AddRolesAndPrivilegesComponent implements OnInit {
         roleName: this.role?.value,
         privilges: this.listOfChoosedPrivileges,
       });
+
+      const data = {
+        role_name: this.roleForm.value.role,
+        privileges: this.listOfChoosedPrivileges,
+      };
+
+      this.addRoleService.submit(data);
     }
   }
 
@@ -67,6 +88,4 @@ export class AddRolesAndPrivilegesComponent implements OnInit {
   closePrivilegesList() {
     this.displayPrivilege = false;
   }
-
-  ngOnInit(): void {}
 }
